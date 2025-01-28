@@ -131,5 +131,5 @@ def test_contract_contracts_by_date():
     contract2 = Contract(author1, book2, "01/01/2001", 20)
     contract3 = Contract(author1, book3, "03/01/2001", 30)
     contract4 = Contract(author2, book4, "01/01/2001", 40)
-
+    # breakpoint()
     assert Contract.contracts_by_date('01/01/2001') == [contract2, contract4]

@@ -7,7 +7,7 @@ class Author:
         Author.all_authors.append(self)
 
     def contracts(self):
-        return [contract for contract in Contract.all_contracts if contract.author == self]
+        return [contract for contract in Contract.all if contract.author == self]
 
     def books(self):
         return [contract.book for contract in self.contracts()]
@@ -30,14 +30,17 @@ class Book:
         Book.all_books.append(self)
 
     def contracts(self):
-        return [contract for contract in Contract.all_contracts if contract.book == self]
+        return [contract for contract in Contract.all if contract.book == self]
 
     def authors(self):
         return [contract.author for contract in self.contracts()]
 
 class Contract:
 
-    all_contracts = []
+    all = []
+
+    # def __repr__(self):
+    #     return f"< {self.author} {self.book} {self.date}"
     
 
     def __init__(self, author, book, date, royalties):
@@ -46,7 +49,7 @@ class Contract:
         self.date = date
         self.royalties = royalties
 
-        Contract.all_contracts.append(self)
+        Contract.all.append(self)
 
         if not isinstance(author, Author):
             raise Exception("author must be an instance of the Author class.")
@@ -63,8 +66,9 @@ class Contract:
    
     @classmethod
     def contracts_by_date(cls, date):
-       return sorted(
-            [contract for contract in cls.all_contracts if contract.date == date],
-            key = lambda contract: contract.date)
+    #    breakpoint()
+       contracts = [contract for contract in cls.all if contract.date == date]
+       return sorted(contracts, key=lambda contract: contract.date)
+            
     
     
